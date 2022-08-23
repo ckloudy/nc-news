@@ -5,16 +5,45 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: #343434;
 }
 
 .App {
   text-align: center;
-  background-color: #343434;
+}
+
+.nav_all_link a {
+  color: #f8f5f2;
+  margin-left: 2rem;
+  padding: .4rem;
+  border: 1px solid #d81e5b;
+  background-color: #d81e5b;
+  border-radius: 30px;
+  font-size: .8rem;
+}
+
+.nav_all_link a:hover {
+  font-weight: 700;
+  color: #d81e5b;
+  background-color: #f8f5f2;
+}
+
+.nav_all_link a:active {
+  color: #d81e5b;
 }
 
 .navbar h2 {
   margin: 0;
   padding: 2rem;
+  color: #f8f5f2;
+  font-size: 4rem;
+}
+
+.loading {
+  margin: 2rem;
+}
+
+.article_title {
   color: #f8f5f2;
 }
 
@@ -135,15 +164,6 @@ ul {
     width: 100%;
     height: 10rem;
   }
-}
-
-a:visited {
-  color: inherit;
-}
-
-a:hover {
-  font-weight: 700;
-  color: #d81e5b;
 }
 
 @media only screen and (max-width: 600px) {

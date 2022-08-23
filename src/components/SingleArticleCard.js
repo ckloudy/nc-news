@@ -12,9 +12,7 @@ const SingleArticleCard = ({ article }) => {
           alt=""
         />
         <div className="topic-icon">
-          <p className="article_info__topic">
-            <a href="#">{article.topic}</a>
-          </p>
+          <p className="article_info__topic">{article.topic}</p>
         </div>
       </div>
       <div className="article_info">
