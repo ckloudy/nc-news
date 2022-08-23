@@ -4,6 +4,7 @@ import ArticleList from './components/ArticleList';
 import LoggedInUser from './components/LoggedInUser';
 import Nav from './components/Nav';
 import FilterArticles from './components/FilterArticles';
+import SingleFullArticle from './components/SingleFullArticle';
 
 function App() {
   return (
@@ -14,6 +15,10 @@ function App() {
         <Routes>
           <Route path="/" element={<ArticleList />} />
           <Route path="/articles/topics/:topic" element={<FilterArticles />} />
+          <Route
+            path="/articles/topics/:topic/article-:id"
+            element={<SingleFullArticle />}
+          />
         </Routes>
       </div>
     </BrowserRouter>
