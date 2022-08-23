@@ -47,6 +47,10 @@ html {
   color: #f8f5f2;
 }
 
+.article_info__title:hover {
+  color: #d81e5b;
+}
+
 .user_img__indicator,
 p {
   display: flex;
@@ -151,6 +155,27 @@ ul {
   width: 100%;
   height: 200px;
   border-radius: 5%;
+}
+
+.fullArticle_container {
+  max-width: 66%;
+  margin: 6rem auto;
+}
+
+.fullArticle_container img {
+  width: 30em;
+  height: 15em;
+}
+
+.fullArticle_container h2 {
+  font-size: 2rem;
+  color: #f8f5f2;
+}
+
+.fullArticle_body {
+  line-height: 1.2rem;
+  font-size: .9rem;
+  margin: 2rem 0;
 }
 
 @media only screen and (max-width: 1000px) {

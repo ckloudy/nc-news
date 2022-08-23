@@ -11,3 +11,11 @@ export function getArticlesByTopic(topic) {
     return res.json();
   });
 }
+
+export function getFullArticle(id) {
+  return fetch(
+    `https://dnc-news.herokuapp.com/api/articles/${id}`
+  ).then((res) => {
+    return res.json();
+  });
+}

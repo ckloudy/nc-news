@@ -7,19 +7,15 @@ const ArticleList = ({ topic }) => {
   const [ isLoading, setIsLoading ] = useState(true);
   const [ topicCap, setTopicCap ] = useState('');
 
-  // function capitalize(string) {
-  //   return string.charAt(0).toUpperCase() + string.slice(1);
-  // }
-
   useEffect(
     () => {
       if (!topic) {
         getArticles().then((articlesFromApi) => {
           setArticles(articlesFromApi.articles);
           setIsLoading(false);
+          setTopicCap('All');
         });
       } else {
-        // topicCap = topic[0].toUpperCase() + topic.slice(1);
         getArticlesByTopic(topic).then((articlesFromApi) => {
           setArticles(articlesFromApi.articles);
           setIsLoading(false);

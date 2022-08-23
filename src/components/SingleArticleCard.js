@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const SingleArticleCard = ({ article }) => {
   const date = article.created_at;
@@ -9,7 +10,7 @@ const SingleArticleCard = ({ article }) => {
       <div className="article_image">
         <img
           src="https://images.unsplash.com/photo-1612178537253-bccd437b730e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-          alt=""
+          alt={article.title}
         />
         <div className="topic-icon">
           <p className="article_info__topic">{article.topic}</p>
@@ -17,7 +18,10 @@ const SingleArticleCard = ({ article }) => {
       </div>
       <div className="article_info">
         <p className="article_info__date">{displayDate}</p>
-        <p className="article_info__title">{article.title}</p>
+        <Link
+          to={`/articles/topics/${article.topic}/article-${article.article_id}`}>
+          <p className="article_info__title">{article.title}</p>
+        </Link>
         <div className="article_footer">
           <div className="article_info__author">
             <p>Written by - {article.author}</p>
