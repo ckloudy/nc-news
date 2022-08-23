@@ -4,17 +4,24 @@ import { getFullArticle } from '../utils/articlesApi';
 
 const SingleFullArticle = () => {
   const [ fullArticle, setFullArticle ] = useState({});
+  const [ isLoading, setIsLoading ] = useState(true);
   const { id } = useParams();
 
   useEffect(
     () => {
       getFullArticle(id).then((articleFromApi) => {
         setFullArticle(articleFromApi.article);
+        setIsLoading(false);
       });
     },
-    [ id ]
+    [ id, isLoading ]
   );
-
+  if (isLoading)
+    return (
+      <div className="loading">
+        <p>Loading...</p>
+      </div>
+    );
   return (
     <div>
       <div className="fullArticle_container">

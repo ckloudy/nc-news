@@ -13,6 +13,7 @@ const ArticleList = ({ topic }) => {
         getArticles().then((articlesFromApi) => {
           setArticles(articlesFromApi.articles);
           setIsLoading(false);
+          setTopicCap('All');
         });
       } else {
         getArticlesByTopic(topic).then((articlesFromApi) => {
