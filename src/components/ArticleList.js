@@ -5,10 +5,11 @@ import SingleArticleCard from './SingleArticleCard';
 const ArticleList = ({ topic }) => {
   const [ articles, setArticles ] = useState([]);
   const [ isLoading, setIsLoading ] = useState(true);
+  const [ topicCap, setTopicCap ] = useState('');
 
-  function capitalize(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
+  // function capitalize(string) {
+  //   return string.charAt(0).toUpperCase() + string.slice(1);
+  // }
 
   useEffect(
     () => {
@@ -18,9 +19,11 @@ const ArticleList = ({ topic }) => {
           setIsLoading(false);
         });
       } else {
+        // topicCap = topic[0].toUpperCase() + topic.slice(1);
         getArticlesByTopic(topic).then((articlesFromApi) => {
           setArticles(articlesFromApi.articles);
           setIsLoading(false);
+          setTopicCap(topic[0].toUpperCase() + topic.slice(1));
         });
       }
     },
@@ -36,10 +39,7 @@ const ArticleList = ({ topic }) => {
   } else {
     return (
       <div className="article-list">
-        <h2 className="article_title">
-          {() => capitalize(topic)}
-          Articles
-        </h2>
+        <h2 className="article_title">{topicCap} Articles</h2>
         <ul>
           {articles.map((article) => {
             return (
