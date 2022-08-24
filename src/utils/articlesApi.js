@@ -21,13 +21,9 @@ export function getFullArticle(id) {
 }
 
 export function updateArticle(id, votes) {
-  return (
-    fetch(`https://dnc-news.herokuapp.com/api/articles/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ inc_vote: votes })
-    })
-      // .then((res) => res.json())
-      .catch((err) => console.log(err))
-  );
+  return fetch(`https://dnc-news.herokuapp.com/api/articles/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ inc_vote: votes })
+  });
 }
