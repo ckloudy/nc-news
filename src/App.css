@@ -5,7 +5,7 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: #635d5d;
+  background-color: #e3dddd;
 }
 
 .App {
@@ -14,7 +14,7 @@ html {
 
 .main_title {
   padding: 50px 0 20px;
-  color: #f8f5f2;
+  color: #363534;
   font-weight: 700;
 }
 
