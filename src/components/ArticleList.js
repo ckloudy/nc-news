@@ -40,7 +40,7 @@ const ArticleList = ({ topic }) => {
         <Typography
           variant="h4"
           component="h2"
-          style={{ padding: 40, color: '#f8f5f2' }}>
+          style={{ padding: 40, color: '#363534' }}>
           {topicCap} Articles
         </Typography>
         <Grid container spacing={4}>
