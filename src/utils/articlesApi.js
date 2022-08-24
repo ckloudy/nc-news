@@ -19,3 +19,11 @@ export function getFullArticle(id) {
     return res.json();
   });
 }
+
+export function updateArticle(id, votes) {
+  return fetch(`https://dnc-news.herokuapp.com/api/articles/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ inc_vote: votes })
+  });
+}

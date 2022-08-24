@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getArticles, getArticlesByTopic } from '../utils/articlesApi';
 import SingleArticleCard from './SingleArticleCard';
+import { Grid, Container, Typography } from '@mui/material';
 
 const ArticleList = ({ topic }) => {
   const [ articles, setArticles ] = useState([]);
@@ -34,16 +35,25 @@ const ArticleList = ({ topic }) => {
     );
   } else {
     return (
-      <div className="article-list">
-        <h2 className="article_title">{topicCap} Articles</h2>
-        <ul>
+      // <div className="article-list">
+      <Container style={{ marginBottom: 50 }}>
+        <Typography
+          variant="h4"
+          component="h2"
+          style={{ padding: 40, color: '#f8f5f2' }}>
+          {topicCap} Articles
+        </Typography>
+        <Grid container spacing={4}>
           {articles.map((article) => {
             return (
-              <SingleArticleCard key={article.article_id} article={article} />
+              <Grid item key={article.article_id} xs={12} sm={6} md={4}>
+                <SingleArticleCard article={article} />
+              </Grid>
             );
           })}
-        </ul>
-      </div>
+        </Grid>
+      </Container>
+      // </div>
     );
   }
 };

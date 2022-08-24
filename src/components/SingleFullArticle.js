@@ -1,11 +1,22 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getFullArticle } from '../utils/articlesApi';
+import { Container, Box, IconButton } from '@mui/material';
+import { ThumbUpRounded, ThumbDownRounded } from '@mui/icons-material';
+import { updateArticle } from '../utils/articlesApi';
 
 const SingleFullArticle = () => {
   const [ fullArticle, setFullArticle ] = useState({});
   const [ isLoading, setIsLoading ] = useState(true);
+  const [ votesChange, setVotesChange ] = useState(0);
+  const [ disabled, setDisabled ] = useState(false);
   const { id } = useParams();
+
+  const handleVote = (inc) => {
+    setVotesChange((curr) => curr + inc);
+    setDisabled(true);
+    updateArticle(id, inc);
+  };
 
   useEffect(
     () => {
@@ -23,22 +34,42 @@ const SingleFullArticle = () => {
       </div>
     );
   return (
-    <div>
-      <div className="fullArticle_container">
-        <h2>{fullArticle.title}</h2>
-        <img
-          src="https://images.unsplash.com/photo-1612178537253-bccd437b730e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-          alt=""
-        />
-        <p className="fullArticle_topic">{fullArticle.topic}</p>
-        <p className="fullArticle_body">{fullArticle.body}</p>
-        <p className="fullArticle_author">Written by - {fullArticle.author}</p>
-        <p className="fullArticle_comments">
-          {fullArticle.comment_count} Comments
-        </p>
-        <p className="fullArticle_votes">{fullArticle.votes} Votes</p>
-      </div>
-    </div>
+    <Container
+      className="fullArticle_container"
+      sx={{ alignItems: 'center', height: '100vh' }}>
+      <h2>{fullArticle.title}</h2>
+      <Box
+        sx={{
+          width: 700,
+          height: 300,
+          overflow: 'hidden',
+          objectFit: 'cover',
+          mx: 'auto'
+        }}>
+        <img src="https://source.unsplash.com/random" alt="" />
+      </Box>
+      <p className="fullArticle_topic">{fullArticle.topic}</p>
+      <p className="fullArticle_body">{fullArticle.body}</p>
+      <p className="fullArticle_author">Written by - {fullArticle.author}</p>
+      <p className="fullArticle_comments">
+        {fullArticle.comment_count} Comments
+      </p>
+      <p className="fullArticle_votes">
+        {fullArticle.votes + votesChange} Votes
+        <IconButton
+          color="success"
+          onClick={() => handleVote(+1)}
+          disabled={disabled}>
+          <ThumbUpRounded />
+        </IconButton>
+        <IconButton
+          color="error"
+          onClick={() => handleVote(-1)}
+          disabled={disabled}>
+          <ThumbDownRounded />
+        </IconButton>
+      </p>
+    </Container>
   );
 };
 
