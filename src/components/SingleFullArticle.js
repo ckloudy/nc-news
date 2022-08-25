@@ -4,6 +4,7 @@ import { getFullArticle } from '../utils/articlesApi';
 import { Container, Box, IconButton } from '@mui/material';
 import { ThumbUpRounded, ThumbDownRounded } from '@mui/icons-material';
 import { updateArticle } from '../utils/articlesApi';
+import CommentsList from './CommentsList';
 
 const SingleFullArticle = () => {
   const [ fullArticle, setFullArticle ] = useState({});
@@ -50,25 +51,30 @@ const SingleFullArticle = () => {
       </Box>
       <p className="fullArticle_topic">{fullArticle.topic}</p>
       <p className="fullArticle_body">{fullArticle.body}</p>
-      <p className="fullArticle_author">Written by - {fullArticle.author}</p>
+      <Box>
+        <p className="fullArticle_author">Written by - {fullArticle.author}</p>
+        <p className="fullArticle_votes">
+          {fullArticle.votes + votesChange} Votes
+          <IconButton
+            color="success"
+            onClick={() => handleVote(+1)}
+            disabled={disabled}>
+            <ThumbUpRounded />
+          </IconButton>
+          <IconButton
+            color="error"
+            onClick={() => handleVote(-1)}
+            disabled={disabled}>
+            <ThumbDownRounded />
+          </IconButton>
+        </p>
+      </Box>
       <p className="fullArticle_comments">
         {fullArticle.comment_count} Comments
       </p>
-      <p className="fullArticle_votes">
-        {fullArticle.votes + votesChange} Votes
-        <IconButton
-          color="success"
-          onClick={() => handleVote(+1)}
-          disabled={disabled}>
-          <ThumbUpRounded />
-        </IconButton>
-        <IconButton
-          color="error"
-          onClick={() => handleVote(-1)}
-          disabled={disabled}>
-          <ThumbDownRounded />
-        </IconButton>
-      </p>
+      <div>
+        <CommentsList fullArticle={fullArticle} id={id} />
+      </div>
     </Container>
   );
 };
