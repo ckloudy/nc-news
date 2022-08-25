@@ -3,16 +3,17 @@ import SingleComment from './SingleComment';
 import { getArticleIdComments } from '../utils/articlesApi';
 import { List } from '@mui/material';
 
-const CommentsList = ({ id }) => {
+const CommentsList = ({ id, newComment, setNewComment }) => {
   const [ allComments, setAllComments ] = useState([]);
 
   useEffect(
     () => {
       getArticleIdComments(id).then((commentsFromApi) => {
         setAllComments(commentsFromApi.comments);
+        setNewComment(false);
       });
     },
-    [ id ]
+    [ id, newComment, setNewComment ]
   );
 
   return (
