@@ -35,3 +35,14 @@ export function updateArticle(id, votes) {
     body: JSON.stringify({ inc_vote: votes })
   });
 }
+
+export function sendArticleIdComment(id, username, message) {
+  return fetch(`https://dnc-news.herokuapp.com/api/articles/${id}/comments`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      username: username,
+      body: message
+    })
+  });
+}

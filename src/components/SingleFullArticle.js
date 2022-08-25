@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getFullArticle } from '../utils/articlesApi';
-import { Container, Box, IconButton } from '@mui/material';
+import { Container, Box, IconButton, Typography } from '@mui/material';
 import { ThumbUpRounded, ThumbDownRounded } from '@mui/icons-material';
 import { updateArticle } from '../utils/articlesApi';
 import CommentsList from './CommentsList';
+import AddComment from './AddComment';
 
 const SingleFullArticle = () => {
   const [ fullArticle, setFullArticle ] = useState({});
@@ -13,6 +14,7 @@ const SingleFullArticle = () => {
   const [ downVotesChange, setDownVotesChange ] = useState(0);
   const [ upDisabled, setUpDisabled ] = useState(false);
   const [ downDisabled, setDownDisabled ] = useState(false);
+  const [ newComment, setNewComment ] = useState(false);
   const { id } = useParams();
 
   const handleUpVote = (inc) => {
@@ -59,11 +61,15 @@ const SingleFullArticle = () => {
         }}>
         <img src="https://source.unsplash.com/random" alt="" />
       </Box>
-      <p className="fullArticle_topic">{fullArticle.topic}</p>
-      <p className="fullArticle_body">{fullArticle.body}</p>
+      <Typography color="text.secondary" sx={{ fontSize: 15, p: 2 }}>
+        {fullArticle.topic}
+      </Typography>
+      <Typography sx={{ fontSize: 17, p: 2 }}>{fullArticle.body}</Typography>
       <Box>
-        <p className="fullArticle_author">Written by - {fullArticle.author}</p>
-        <p className="fullArticle_votes">
+        <Typography sx={{ fontSize: 15, p: 2 }} color="text.secondary">
+          Written by - {fullArticle.author}
+        </Typography>
+        <Typography sx={{ fontSize: 15, p: 2 }}>
           {fullArticle.votes + upVotesChange + downVotesChange} Votes
           <IconButton
             color="success"
@@ -77,13 +83,17 @@ const SingleFullArticle = () => {
             disabled={downDisabled}>
             <ThumbDownRounded />
           </IconButton>
-        </p>
+        </Typography>
       </Box>
-      <p className="fullArticle_comments">
-        {fullArticle.comment_count} Comments
-      </p>
+      <Typography>{fullArticle.comment_count} Comments</Typography>
+      <AddComment id={id} setNewComment={setNewComment} />
       <div>
-        <CommentsList fullArticle={fullArticle} id={id} />
+        <CommentsList
+          fullArticle={fullArticle}
+          id={id}
+          newComment={newComment}
+          setNewComment={setNewComment}
+        />
       </div>
     </Container>
   );
