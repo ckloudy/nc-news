@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
 import { ListItem, ListItemText, Typography, Card } from '@mui/material';
 
 const SingleComment = ({ comment }) => {
   const date = comment.created_at;
   const displayDate = new Date(date).toLocaleString('en-GB');
+
   return (
     <div>
       <Card sx={{ mb: 1 }}>
