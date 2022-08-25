@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react';
 import { getArticles, getArticlesByTopic } from '../utils/articlesApi';
 import SingleArticleCard from './SingleArticleCard';
 import { Grid, Container, Typography } from '@mui/material';
+import { UserContext } from '../contexts/UserContext';
+import { useContext } from 'react';
 
 const ArticleList = ({ topic }) => {
   const [ articles, setArticles ] = useState([]);
   const [ isLoading, setIsLoading ] = useState(true);
   const [ topicCap, setTopicCap ] = useState('');
+  const { user } = useContext(UserContext);
 
   useEffect(
     () => {
@@ -37,6 +40,7 @@ const ArticleList = ({ topic }) => {
     return (
       // <div className="article-list">
       <Container style={{ marginBottom: 50 }}>
+        <Typography variant="h5">Hello, {user.name}</Typography>
         <Typography
           variant="h4"
           component="h2"
