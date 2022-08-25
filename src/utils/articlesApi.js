@@ -20,6 +20,14 @@ export function getFullArticle(id) {
   });
 }
 
+export function getArticleIdComments(id) {
+  return fetch(
+    `https://dnc-news.herokuapp.com/api/articles/${id}/comments`
+  ).then((res) => {
+    return res.json();
+  });
+}
+
 export function updateArticle(id, votes) {
   return fetch(`https://dnc-news.herokuapp.com/api/articles/${id}`, {
     method: 'PATCH',
