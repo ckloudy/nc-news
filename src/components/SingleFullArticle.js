@@ -9,13 +9,23 @@ import CommentsList from './CommentsList';
 const SingleFullArticle = () => {
   const [ fullArticle, setFullArticle ] = useState({});
   const [ isLoading, setIsLoading ] = useState(true);
-  const [ votesChange, setVotesChange ] = useState(0);
-  const [ disabled, setDisabled ] = useState(false);
+  const [ upVotesChange, setUpVotesChange ] = useState(0);
+  const [ downVotesChange, setDownVotesChange ] = useState(0);
+  const [ upDisabled, setUpDisabled ] = useState(false);
+  const [ downDisabled, setDownDisabled ] = useState(false);
   const { id } = useParams();
 
-  const handleVote = (inc) => {
-    setVotesChange((curr) => curr + inc);
-    setDisabled(true);
+  const handleUpVote = (inc) => {
+    setUpVotesChange((curr) => curr + inc);
+    setUpDisabled(true);
+    setDownDisabled(false);
+    updateArticle(id, inc);
+  };
+
+  const handleDownVote = (inc) => {
+    setDownVotesChange((curr) => curr + inc);
+    setDownDisabled(true);
+    setUpDisabled(false);
     updateArticle(id, inc);
   };
 
@@ -54,17 +64,17 @@ const SingleFullArticle = () => {
       <Box>
         <p className="fullArticle_author">Written by - {fullArticle.author}</p>
         <p className="fullArticle_votes">
-          {fullArticle.votes + votesChange} Votes
+          {fullArticle.votes + upVotesChange + downVotesChange} Votes
           <IconButton
             color="success"
-            onClick={() => handleVote(+1)}
-            disabled={disabled}>
+            onClick={() => handleUpVote(+1)}
+            disabled={upDisabled}>
             <ThumbUpRounded />
           </IconButton>
           <IconButton
             color="error"
-            onClick={() => handleVote(-1)}
-            disabled={disabled}>
+            onClick={() => handleDownVote(-1)}
+            disabled={downDisabled}>
             <ThumbDownRounded />
           </IconButton>
         </p>
