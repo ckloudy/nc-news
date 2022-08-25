@@ -16,20 +16,29 @@ const AddComment = ({ id, setNewComment }) => {
   const [ color, setColor ] = useState('primary');
 
   const handleSubmit = () => {
-    setDisabled(true);
-    sendArticleIdComment(id, user.username, message).then(() => {
-      setDisabled(false);
-      setDone(<Done />);
-      setSent('posted');
-      setColor('success');
+    if (message === '') {
+      setColor('error');
+      setDone('Please type a comment first');
       setTimeout(() => {
-        setSent('');
-        setDone('Add Comment');
         setColor('primary');
-      }, 1500);
-      setMessage('');
-      setNewComment(true);
-    });
+        setDone('Add a comment');
+      }, 1000);
+    } else {
+      setDisabled(true);
+      sendArticleIdComment(id, user.username, message).then(() => {
+        setDisabled(false);
+        setDone(<Done />);
+        setSent('posted');
+        setColor('success');
+        setTimeout(() => {
+          setSent('');
+          setDone('Add Comment');
+          setColor('primary');
+        }, 1500);
+        setMessage('');
+        setNewComment(true);
+      });
+    }
   };
 
   return (
