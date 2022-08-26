@@ -5,6 +5,7 @@ import { List } from '@mui/material';
 
 const CommentsList = ({ id, newComment, setNewComment }) => {
   const [ allComments, setAllComments ] = useState([]);
+  const [ deleteComment, setDeleteComment ] = useState(false);
 
   useEffect(
     () => {
@@ -13,7 +14,7 @@ const CommentsList = ({ id, newComment, setNewComment }) => {
         setNewComment(false);
       });
     },
-    [ id, newComment, setNewComment ]
+    [ id, newComment, setNewComment, deleteComment ]
   );
 
   return (
@@ -21,7 +22,14 @@ const CommentsList = ({ id, newComment, setNewComment }) => {
       <List>
         {allComments.map((comment) => {
           return (
-            <SingleComment id={id} comment={comment} key={comment.comment_id} />
+            <SingleComment
+              id={id}
+              comment={comment}
+              key={comment.comment_id}
+              author={comment.auhtor}
+              setAllComments={setAllComments}
+              setDeleteComment={setDeleteComment}
+            />
           );
         })}
       </List>
