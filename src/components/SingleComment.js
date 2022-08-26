@@ -1,8 +1,12 @@
 import { ListItem, ListItemText, Typography, Card } from '@mui/material';
+import DeleteComment from './DeleteComment';
+import { useContext } from 'react';
+import { UserContext } from '../contexts/UserContext';
 
-const SingleComment = ({ comment }) => {
+const SingleComment = ({ comment, setDeleteComment, setAllComments }) => {
   const date = comment.created_at;
   const displayDate = new Date(date).toLocaleString('en-GB');
+  const { user } = useContext(UserContext);
 
   return (
     <div>
@@ -20,6 +24,13 @@ const SingleComment = ({ comment }) => {
               </Typography>
             }
           />
+          {user.username === comment.author ? (
+            <DeleteComment
+              id={comment.comment_id}
+              setDeleteComment={setDeleteComment}
+              setAllComments={setAllComments}
+            />
+          ) : null}
         </ListItem>
       </Card>
     </div>
