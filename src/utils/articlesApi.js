@@ -1,15 +1,17 @@
-export function getArticles() {
-  return fetch('https://dnc-news.herokuapp.com/api/articles').then((res) => {
-    return res.json();
-  });
-}
+import axios from 'axios';
 
-export function getArticlesByTopic(topic) {
-  return fetch(
-    `https://dnc-news.herokuapp.com/api/articles?topic=${topic}`
-  ).then((res) => {
-    return res.json();
-  });
+export function getArticles(topic, sort = 'created_at', order = 'DESC') {
+  return axios
+    .get(`https://dnc-news.herokuapp.com/api/articles`, {
+      params: {
+        topic: topic,
+        sort_by: sort,
+        order: order
+      }
+    })
+    .then(({ data }) => {
+      return data;
+    });
 }
 
 export function getFullArticle(id) {

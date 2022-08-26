@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
-import { FavoriteRounded } from '@mui/icons-material';
+import { Card, CardContent, CardMedia, Typography, Box } from '@mui/material';
+import { FavoriteRounded, QuestionAnswer } from '@mui/icons-material';
 
 const SingleArticleCard = ({ article }) => {
   const date = article.created_at;
@@ -54,13 +54,32 @@ const SingleArticleCard = ({ article }) => {
           style={{ fontSize: 12 }}>
           Written by - {article.author}
         </Typography>
-        <Typography
-          variant="body2"
-          alignItems={'center'}
-          style={{ fontSize: 12, marginTop: 10 }}>
-          {article.votes}
-        </Typography>
-        <FavoriteRounded color="error" fontSize="small" />
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 3
+          }}>
+          <Typography
+            variant="body2"
+            alignItems={'center'}
+            style={{ fontSize: 15, marginTop: 10, marginRight: 6 }}>
+            {article.comment_count}
+          </Typography>
+          <QuestionAnswer
+            color="primary"
+            fontSize="small"
+            sx={{ marginRight: 10 }}
+          />
+          <Typography
+            variant="body2"
+            alignItems={'center'}
+            style={{ fontSize: 15, marginTop: 10, marginRight: 6 }}>
+            {article.votes}
+          </Typography>
+          <FavoriteRounded color="error" fontSize="small" />
+        </Box>
       </CardContent>
     </Card>
   );
