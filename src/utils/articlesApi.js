@@ -48,3 +48,10 @@ export function sendArticleIdComment(id, username, message) {
     })
   });
 }
+
+export function deleteCommentById(id) {
+  console.log(id);
+  axios.delete(`https://dnc-news.herokuapp.com/api/comments/${id}`).then(() => {
+    return { msg: 'Comment has been deleted' };
+  });
+}
