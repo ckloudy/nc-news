@@ -4,6 +4,38 @@ export function getArticles() {
   });
 }
 
+export function getArticlesSort(topic, sort) {
+  return fetch(
+    `https://dnc-news.herokuapp.com/api/articles?topic=${topic}&sort_by=${sort}`
+  ).then((res) => {
+    return res.json();
+  });
+}
+
+export function getArticlesSortNoTopic(sort) {
+  return fetch(
+    `https://dnc-news.herokuapp.com/api/articles?sort_by=${sort}`
+  ).then((res) => {
+    return res.json();
+  });
+}
+
+export function getArticlesOrder(topic, order) {
+  return fetch(
+    `https://dnc-news.herokuapp.com/api/articles?topic=${topic}&order=${order}`
+  ).then((res) => {
+    return res.json();
+  });
+}
+
+export function getArticlesOrderNoTopic(order) {
+  return fetch(
+    `https://dnc-news.herokuapp.com/api/articles?order=${order}`
+  ).then((res) => {
+    return res.json();
+  });
+}
+
 export function getArticlesByTopic(topic) {
   return fetch(
     `https://dnc-news.herokuapp.com/api/articles?topic=${topic}`
