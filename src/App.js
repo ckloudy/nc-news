@@ -9,7 +9,7 @@ import { useState } from 'react';
 
 function App() {
   const [ user, setUser ] = useState({
-    name: 'Jonny',
+    name: 'Jess',
     username: 'jessjelly'
   });
   return (
