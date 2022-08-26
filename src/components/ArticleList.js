@@ -1,12 +1,5 @@
 import { useState, useEffect } from 'react';
-import {
-  getArticles,
-  getArticlesByTopic,
-  getArticlesSort,
-  getArticlesOrder,
-  getArticlesSortNoTopic,
-  getArticlesOrderNoTopic
-} from '../utils/articlesApi';
+import { getArticles } from '../utils/articlesApi';
 import SingleArticleCard from './SingleArticleCard';
 import {
   Grid,
@@ -25,55 +18,27 @@ const ArticleList = ({ topic }) => {
   const [ articles, setArticles ] = useState([]);
   const [ isLoading, setIsLoading ] = useState(true);
   const [ topicCap, setTopicCap ] = useState('');
-  const [ sort, setSort ] = useState('');
-  const [ order, setOrder ] = useState('');
+  const [ sort, setSort ] = useState('created_at');
+  const [ order, setOrder ] = useState('DESC');
   const { user } = useContext(UserContext);
 
   useEffect(
     () => {
-      if (!topic) {
-        getArticles().then((articlesFromApi) => {
-          setArticles(articlesFromApi.articles);
-          setIsLoading(false);
-          setTopicCap('All');
-        });
-      } else {
-        getArticlesByTopic(topic).then((articlesFromApi) => {
-          setArticles(articlesFromApi.articles);
-          setIsLoading(false);
-          setTopicCap(topic[0].toUpperCase() + topic.slice(1));
-        });
-      }
+      getArticles(topic, sort, order).then((articlesFromApi) => {
+        setArticles(articlesFromApi.articles);
+        setIsLoading(false);
+        setTopicCap('All');
+      });
     },
-    [ topic, isLoading ]
+    [ topic, isLoading, sort, order ]
   );
 
   const handleChange = (e) => {
-    if (!topic) {
-      getArticlesSortNoTopic(e.target.value).then((sortedArticles) => {
-        setArticles(sortedArticles.articles);
-        setSort(e.target.value);
-      });
-    } else {
-      getArticlesSort(topic, e.target.value).then((sortedArticles) => {
-        setArticles(sortedArticles.articles);
-        setSort(e.target.value);
-      });
-    }
+    setSort(e.target.value);
   };
 
   const handleOrder = (e) => {
-    if (!order) {
-      getArticlesOrderNoTopic(e.target.value).then((orderedArticles) => {
-        setArticles(orderedArticles.articles);
-        setOrder(e.target.value);
-      });
-    } else {
-      getArticlesOrder(topic, e.target.value).then((orderedArticles) => {
-        setArticles(orderedArticles.articles);
-        setOrder(e.target.value);
-      });
-    }
+    setOrder(e.target.value);
   };
 
   if (isLoading) {
@@ -116,6 +81,7 @@ const ArticleList = ({ topic }) => {
                 <MenuItem value={'title'}>Title</MenuItem>
                 <MenuItem value={'author'}>Author</MenuItem>
                 <MenuItem value={'votes'}>Votes</MenuItem>
+                <MenuItem value={'comment_count'}>Comments</MenuItem>
               </Select>
             </FormControl>
             <FormControl fullWidth size="small">
@@ -151,3 +117,22 @@ const ArticleList = ({ topic }) => {
 };
 
 export default ArticleList;
+
+// useEffect(
+//   () => {
+//     if (!topic) {
+//       getArticles(sort, order).then((articlesFromApi) => {
+//         setArticles(articlesFromApi.articles);
+//         setIsLoading(false);
+//         setTopicCap('All');
+//       });
+//     } else {
+//       getArticlesByTopic(topic).then((articlesFromApi) => {
+//         setArticles(articlesFromApi.articles);
+//         setIsLoading(false);
+//         setTopicCap(topic[0].toUpperCase() + topic.slice(1));
+//       });
+//     }
+//   },
+//   [ topic, isLoading, sort, order ]
+// );
