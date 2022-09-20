@@ -13,7 +13,6 @@ import {
 } from '@mui/material';
 import { UserContext } from '../contexts/UserContext';
 import { useContext } from 'react';
-import Error from './Error';
 
 const ArticleList = ({ topic }) => {
   const [ articles, setArticles ] = useState([]);
@@ -21,7 +20,6 @@ const ArticleList = ({ topic }) => {
   const [ topicCap, setTopicCap ] = useState('');
   const [ sort, setSort ] = useState('created_at');
   const [ order, setOrder ] = useState('DESC');
-  const [ error, setError ] = useState(null);
   const { user } = useContext(UserContext);
 
   useEffect(
@@ -34,7 +32,6 @@ const ArticleList = ({ topic }) => {
         })
         .catch((err) => {
           console.log(err);
-          setError({ err });
         });
     },
     [ topic, isLoading, sort, order ]
@@ -48,10 +45,6 @@ const ArticleList = ({ topic }) => {
     setOrder(e.target.value);
   };
 
-  // if (error) {
-  //   console.log(error);
-  //   return <Error error={error} />;
-  // } else
   if (isLoading) {
     return (
       <div className="loading">
