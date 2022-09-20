@@ -1,5 +1,5 @@
 
-## Paddington News - NC- News project
+## Paddington Post - Frontend Project
 
 This project is built using the React framework and uses a backend Postgres SQL database of news articles and presents this on the frontend to users via an API.
 
