@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import { UserContext } from '../contexts/UserContext';
 import { useContext } from 'react';
+import { capitalizeFirstLetter } from '../utils/Capitalize';
 
 const ArticleList = ({ topic }) => {
   const [ articles, setArticles ] = useState([]);
@@ -28,7 +29,8 @@ const ArticleList = ({ topic }) => {
         .then((articlesFromApi) => {
           setArticles(articlesFromApi.articles);
           setIsLoading(false);
-          setTopicCap('All');
+          const cap = capitalizeFirstLetter(topic);
+          setTopicCap(cap);
         })
         .catch((err) => {
           console.log(err);
@@ -53,7 +55,6 @@ const ArticleList = ({ topic }) => {
     );
   } else {
     return (
-      // <div className="article-list">
       <Container style={{ marginBottom: 50 }}>
         <Typography variant="h5">Hello, {user.name}</Typography>
         <Container
@@ -121,22 +122,3 @@ const ArticleList = ({ topic }) => {
 };
 
 export default ArticleList;
-
-// useEffect(
-//   () => {
-//     if (!topic) {
-//       getArticles(sort, order).then((articlesFromApi) => {
-//         setArticles(articlesFromApi.articles);
-//         setIsLoading(false);
-//         setTopicCap('All');
-//       });
-//     } else {
-//       getArticlesByTopic(topic).then((articlesFromApi) => {
-//         setArticles(articlesFromApi.articles);
-//         setIsLoading(false);
-//         setTopicCap(topic[0].toUpperCase() + topic.slice(1));
-//       });
-//     }
-//   },
-//   [ topic, isLoading, sort, order ]
-// );
