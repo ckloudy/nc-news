@@ -15,7 +15,7 @@ This project is built using the React framework and uses a backend Postgres SQL 
 
 ## Demo
 
-Insert gif or link to demo
+https://paddingtonpost.netlify.app/
 
 
 ## Lessons Learned
