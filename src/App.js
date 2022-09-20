@@ -6,7 +6,6 @@ import FilterArticles from './components/FilterArticles';
 import SingleFullArticle from './components/SingleFullArticle';
 import { UserContext } from './contexts/UserContext';
 import { useState } from 'react';
-import Error from './components/Error';
 
 function App() {
   const [ user, setUser ] = useState({
