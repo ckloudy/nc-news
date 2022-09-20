@@ -15,11 +15,14 @@ export function getArticles(topic, sort = 'created_at', order = 'DESC') {
 }
 
 export function getFullArticle(id) {
-  return fetch(
-    `https://dnc-news.herokuapp.com/api/articles/${id}`
-  ).then((res) => {
-    return res.json();
-  });
+  return axios
+    .get(`https://dnc-news.herokuapp.com/api/articles/${id}`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      throw err;
+    });
 }
 
 export function getArticleIdComments(id) {
