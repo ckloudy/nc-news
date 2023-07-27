@@ -26,7 +26,7 @@ export function getFullArticle(id) {
 }
 
 export function getArticleIdComments(id) {
-    return fetch(`https://news-api-rb8r.onrender.com/api/${id}/comments`).then((res) => {
+    return fetch(`https://news-api-rb8r.onrender.com/api/articles/${id}/comments`).then((res) => {
         return res.json();
     });
 }
