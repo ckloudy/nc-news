@@ -1,40 +1,36 @@
-import { useState, useEffect } from 'react';
-import SingleComment from './SingleComment';
-import { getArticleIdComments } from '../utils/articlesApi';
-import { List } from '@mui/material';
+import { useState, useEffect } from "react";
+import SingleComment from "./SingleComment";
+import { getArticleIdComments } from "../utils/articlesApi";
 
 const CommentsList = ({ id, newComment, setNewComment }) => {
-  const [ allComments, setAllComments ] = useState([]);
-  const [ deleteComment, setDeleteComment ] = useState(false);
+    const [allComments, setAllComments] = useState([]);
+    const [deleteComment, setDeleteComment] = useState(false);
 
-  useEffect(
-    () => {
-      getArticleIdComments(id).then((commentsFromApi) => {
-        setAllComments(commentsFromApi.comments);
-        setNewComment(false);
-      });
-    },
-    [ id, newComment, setNewComment, deleteComment ]
-  );
+    useEffect(() => {
+        getArticleIdComments(id).then((commentsFromApi) => {
+            setAllComments(commentsFromApi.comments);
+            setNewComment(false);
+        });
+    }, [id, newComment, setNewComment, deleteComment]);
 
-  return (
-    <div>
-      <List>
-        {allComments.map((comment) => {
-          return (
-            <SingleComment
-              id={id}
-              comment={comment}
-              key={comment.comment_id}
-              author={comment.auhtor}
-              setAllComments={setAllComments}
-              setDeleteComment={setDeleteComment}
-            />
-          );
-        })}
-      </List>
-    </div>
-  );
+    return (
+        <div className="mb-9">
+            <ul>
+                {allComments.map((comment) => {
+                    return (
+                        <SingleComment
+                            id={id}
+                            comment={comment}
+                            key={comment.comment_id}
+                            author={comment.auhtor}
+                            setAllComments={setAllComments}
+                            setDeleteComment={setDeleteComment}
+                        />
+                    );
+                })}
+            </ul>
+        </div>
+    );
 };
 
 export default CommentsList;

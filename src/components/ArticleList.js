@@ -1,27 +1,17 @@
 import { useState, useEffect } from "react";
 import { getArticles } from "../utils/articlesApi";
 import SingleArticleCard from "./SingleArticleCard";
-import {
-    Grid,
-    Container,
-    Typography,
-    Box,
-    FormControl,
-    InputLabel,
-    Select,
-    MenuItem,
-} from "@mui/material";
-import { UserContext } from "../contexts/UserContext";
-import { useContext } from "react";
+import { Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { motion } from "framer-motion";
 import { capitalizeFirstLetter } from "../utils/Capitalize";
 
 const ArticleList = ({ topic }) => {
     const [articles, setArticles] = useState([]);
+
     const [isLoading, setIsLoading] = useState(true);
     const [topicCap, setTopicCap] = useState("");
     const [sort, setSort] = useState("created_at");
     const [order, setOrder] = useState("DESC");
-    const { user } = useContext(UserContext);
 
     useEffect(() => {
         getArticles(topic, sort, order)
@@ -46,27 +36,26 @@ const ArticleList = ({ topic }) => {
 
     if (isLoading) {
         return (
-            <div className="loading">
-                <p>Loading...</p>
+            <div className="text-center mt-10">
+                <div className="dots-bars-6 flex mx-auto"></div>
+                <p className="font-Lato mt-10">
+                    If you're reading this then it's because the server is spinning up due to being
+                    on a free plan 😩
+                </p>
             </div>
         );
     } else {
         return (
-            <Container style={{ marginBottom: 50 }}>
-                <Typography variant="h5">Hello, {user.name}</Typography>
-                <Container
-                    sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}>
-                    <Typography
-                        variant="h4"
-                        component="h2"
-                        style={{ padding: 40, color: "#363534" }}>
-                        {topicCap} Articles
-                    </Typography>
-                    <Box sx={{ minWidth: 80, width: 270, mr: 5, display: "flex" }}>
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                className="mb-12 mx-2 sm:mx-14">
+                <div className="flex justify-between items-center">
+                    <h2 className="mx-6 mb-5 md:mb-8 text-4xl font-sans font-semibold items-center">
+                        {topicCap ? `${topicCap} Articles` : "All Articles"}
+                    </h2>
+                    <Box className="flex gap-2 mr-10 w-80 mx-6 mb-5 md:mb-8">
                         <FormControl fullWidth size="small">
                             <InputLabel color="success" id="select-label">
                                 Sort By
@@ -79,7 +68,6 @@ const ArticleList = ({ topic }) => {
                                 value={sort}
                                 onChange={handleChange}>
                                 <MenuItem value={"created_at"}>Most recent</MenuItem>
-                                <MenuItem value={"article_id"}>id</MenuItem>
                                 <MenuItem value={"title"}>Title</MenuItem>
                                 <MenuItem value={"author"}>Author</MenuItem>
                                 <MenuItem value={"votes"}>Votes</MenuItem>
@@ -102,18 +90,19 @@ const ArticleList = ({ topic }) => {
                             </Select>
                         </FormControl>
                     </Box>
-                </Container>
-                <Grid container spacing={4}>
+                </div>
+                <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 px-5">
                     {articles.map((article, index) => {
                         return (
-                            <Grid item key={article.article_id} xs={12} sm={6} md={4}>
-                                <SingleArticleCard article={article} index={index} />
-                            </Grid>
+                            <SingleArticleCard
+                                article={article}
+                                index={index}
+                                key={article.article_id}
+                            />
                         );
                     })}
-                </Grid>
-            </Container>
-            // </div>
+                </div>
+            </motion.div>
         );
     }
 };

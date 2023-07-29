@@ -1,40 +1,42 @@
-import { ListItem, ListItemText, Typography, Card } from '@mui/material';
-import DeleteComment from './DeleteComment';
-import { useContext } from 'react';
-import { UserContext } from '../contexts/UserContext';
+import DeleteComment from "./DeleteComment";
+import { useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
 
 const SingleComment = ({ comment, setDeleteComment, setAllComments }) => {
-  const date = comment.created_at;
-  const displayDate = new Date(date).toLocaleString('en-GB');
-  const { user } = useContext(UserContext);
+    const dateOptions = { weekday: "short", year: "numeric", month: "short", day: "numeric" };
+    const date = comment.created_at;
+    const displayDate = new Date(date);
+    const dateString = displayDate.toLocaleDateString("en-GB", dateOptions);
+    const hours = displayDate.getHours();
+    const mins = displayDate.getMinutes();
+    const { user } = useContext(UserContext);
 
-  return (
-    <div>
-      <Card sx={{ mb: 1 }}>
-        <ListItem alignItems="flex-start">
-          <ListItemText
-            primary={comment.body}
-            secondary={
-              <Typography
-                sx={{ display: 'block', marginTop: 2 }}
-                component="span"
-                variant="body2"
-                color="text.secondary">
-                {comment.author} - {displayDate} - {comment.votes} votes
-              </Typography>
-            }
-          />
-          {user.username === comment.author ? (
-            <DeleteComment
-              id={comment.comment_id}
-              setDeleteComment={setDeleteComment}
-              setAllComments={setAllComments}
-            />
-          ) : null}
-        </ListItem>
-      </Card>
-    </div>
-  );
+    const ampm = hours < 12 ? "am" : "pm";
+    const lessThanTenInHours = hours < 10 ? 0 : "";
+    const lessThanTenInMinutes = mins < 10 ? 0 : "";
+
+    return (
+        <li className="bg-white my-3 rounded-md flex justify-between items-center">
+            <div className="p-4">
+                <p className="text-sm mb-5">
+                    <span className="font-semibold">{comment.author}</span> | {dateString} @ {""}
+                    {lessThanTenInHours}
+                    {hours}:{lessThanTenInMinutes}
+                    {mins}
+                    {ampm}
+                </p>
+                <p>{comment.body}</p>
+            </div>
+
+            {user.username === comment.author ? (
+                <DeleteComment
+                    id={comment.comment_id}
+                    setDeleteComment={setDeleteComment}
+                    setAllComments={setAllComments}
+                />
+            ) : null}
+        </li>
+    );
 };
 
 export default SingleComment;
