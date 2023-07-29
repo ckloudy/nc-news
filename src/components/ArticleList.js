@@ -50,8 +50,8 @@ const ArticleList = ({ topic }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
-                className="mb-12 mx-2 sm:mx-14">
-                <div className="flex justify-between items-center">
+                className="mb-12 mx-2 md:mx-10">
+                <div className="justify-between items-center inline-block md:flex">
                     <h2 className="mx-6 mb-5 md:mb-8 text-4xl font-sans font-semibold items-center">
                         {topicCap ? `${topicCap} Articles` : "All Articles"}
                     </h2>

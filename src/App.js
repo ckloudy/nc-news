@@ -31,7 +31,7 @@ function App() {
                             className="h-[200px] w-[100%] object-cover my-8 brightness-75"
                         />
                         <div className="absolute top-[30%] text-center px-5 align-center left-auto lg:top-[40%] lg:right-[5%] xl:right-[18%] md:right-[5%]">
-                            <p className="text-5xl font-black text-white drop-shadow-lg">
+                            <p className="text-3xl md:text-5xl font-black text-white drop-shadow-lg ">
                                 "Knowledge Is The Life Of The Mind"
                             </p>
                         </div>
