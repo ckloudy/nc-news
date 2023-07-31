@@ -3,21 +3,14 @@ import { Link } from "react-router-dom";
 import { Card, CardContent } from "@mui/material";
 import { FavoriteRounded, QuestionAnswer } from "@mui/icons-material";
 import { motion } from "framer-motion";
+import formatDate from "../utils/formatDate";
 
-const SingleArticleCard = ({ article, index }) => {
-    const dateOptions = { weekday: "short", year: "numeric", month: "short", day: "numeric" };
+const SingleArticleCard = ({ article }) => {
     const date = article.created_at;
-    const displayDate = new Date(date);
-    const dateString = displayDate.toLocaleDateString("en-GB", dateOptions);
-    const hours = displayDate.getHours();
-    const mins = displayDate.getMinutes();
     const lowerCaseTitle = article.title.toLowerCase();
     const newTitle = lowerCaseTitle.charAt(0).toUpperCase() + lowerCaseTitle.slice(1);
 
-    //Construct time with am / pm
-    const ampm = hours < 12 ? "am" : "pm";
-    const lessThanTenInHours = hours < 10 ? 0 : "";
-    const lessThanTenInMinutes = mins < 10 ? 0 : "";
+    const postedOn = formatDate(date);
 
     //Animation variants for cards
     const cardVariants = {
@@ -44,12 +37,7 @@ const SingleArticleCard = ({ article, index }) => {
                 <Card>
                     <CardContent>
                         <div className="flex justify-between items-center px-5 border-b-2 pb-3">
-                            <p className="text-[12px] inline-block">
-                                Posted on {dateString} @ {lessThanTenInHours}
-                                {hours}:{lessThanTenInMinutes}
-                                {mins}
-                                {ampm}
-                            </p>
+                            <p className="text-[12px] inline-block">{postedOn}</p>
                             <span
                                 className={`text-[0.7rem] text-white py-1 px-3 rounded-full font-semibold ${
                                     article.topic === "cooking"
